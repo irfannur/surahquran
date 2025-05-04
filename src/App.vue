@@ -12,7 +12,7 @@
         </div>
 
         <!-- Judul -->
-        <div class="text-3xl font-bold text-center flex-1 p-3">
+        <div class="text-3xl font-bold text-center flex-1 p-3 mt-5 md:mt-0">
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
             Pencarian Surah Al-Qur'an
           </span>
@@ -79,13 +79,14 @@
   <footer
     class="pl-5 fixed bottom-0 left-0 w-full flex justify-between items-center py-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-sm shadow">
     <div class="text-center">
-      © 2025 <a href="https://github.com/irfannur" target="_blank"
-        class="text-blue-600 dark:text-blue-400 hover:underline">Irfannurf</a>, Thanks to <a href="https://quran.com"
+      © 2025 <span
+        class="text-blue-600 dark:text-blue-400 hover:underline">Irfannurf</span>, Thanks to <a href="https://quran.com"
         target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Quran.com</a>
     </div>
     <div class="flex space-x-4 pr-4">
       <!-- YouTube Icon -->
-      <a href="https://www.youtube.com/@RockyDrive" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-red-600">
+      <a href="https://www.youtube.com/@RockyDrive" target="_blank"
+        class="text-gray-600 dark:text-gray-400 hover:text-red-600">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
           <path
             d="M23.498 6.186a2.99 2.99 0 00-2.105-2.11C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.393.576a2.99 2.99 0 00-2.105 2.11C0 8.08 0 12 0 12s0 3.92.502 5.814a2.99 2.99 0 002.105 2.11C4.5 20.5 12 20.5 12 20.5s7.5 0 9.393-.576a2.99 2.99 0 002.105-2.11C24 15.92 24 12 24 12s0-3.92-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
