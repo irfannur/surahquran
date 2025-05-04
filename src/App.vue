@@ -40,7 +40,7 @@
       </div>
 
       <div class="sticky top-0 z-50 bg-white dark:bg-gray-800 py-3 mt-4 md:mt-0">
-        <input v-model="searchQuery" type="text" placeholder="Cari nama surat..."
+        <input v-model="searchQuery" type="text" placeholder="Cari nama surah..."
           class="w-full max-w-lg mx-auto block px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700" />
       </div>
 
