@@ -1,0 +1,19 @@
+/* src/assets/main.css */
+
+/* Reset dasar dari Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styling untuk body */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc; /* Warna latar belakang terang */
+  color: #333; /* Warna teks utama */
+}
+
+/* Styling untuk mode gelap */
+body.dark {
+  background-color: #1f2937; /* Warna latar belakang gelap */
+  color: #e5e7eb; /* Warna teks terang untuk mode gelap */
+}
