@@ -14,7 +14,7 @@
         <!-- Judul -->
         <div class="text-3xl font-bold text-center flex-1 p-3">
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
-            Pencarian Surat Al-Qur'an
+            Pencarian Surah Al-Qur'an
           </span>
         </div>
 
