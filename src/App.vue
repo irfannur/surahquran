@@ -39,7 +39,7 @@
         </button>
       </div>
 
-      <div class="sticky top-0 z-50 bg-white dark:bg-gray-800 py-3 mt-4 md:mt-0">
+      <div class="sticky top-0 z-30 bg-white dark:bg-gray-800 py-3 mt-4 md:mt-0">
         <input v-model="searchQuery" type="text" placeholder="Cari nama surah..."
           class="w-full max-w-lg mx-auto block px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700" />
       </div>
@@ -58,58 +58,83 @@
     </div>
 
     <!-- Offcanvas -->
-    <div v-if="showOffcanvas"
-      class="fixed inset-x-0 bottom-0 bg-white dark:bg-gray-800 shadow-lg py-4 border-t border-gray-300 dark:border-gray-700">
-      <button @click="closeOffcanvas" class="absolute top-2 right-4 text-gray-900 dark:text-white">
-        ✕
-      </button>
-      <div class="relative w-full h-96 mt-6 mb-7">
+    <div v-if="showOffcanvas" :class="isFullscreen ? 'fixed inset-0' : 'fixed inset-x-0 bottom-0 h-1/2'"
+      class="bg-white dark:bg-gray-800 shadow-lg pt-4 border-t border-gray-300 dark:border-gray-700 z-40">
+      <!-- Tombol Tutup -->
+      <div class="absolute top-1.5 right-4 flex space-x-4">
+
+        <!-- Tombol Fullscreen -->
+        <button @click="toggleFullscreen" class="text-gray-900 dark:text-white">
+          <span v-if="isFullscreen"><svg class="w-6 h-2.5 text-gray-800 dark:text-white" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1" />
+            </svg></span>
+
+          <span v-else><svg class="w-6 h-2.5 text-gray-800 dark:text-white" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" />
+            </svg></span>
+        </button>
+
+        <!-- Tombol Tutup -->
+        <button @click="closeOffcanvas" class="text-gray-900 dark:text-white">
+          <svg class="w-6 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="relative w-full h-full mt-4">
         <!-- Loading Indicator -->
         <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-900">
           <span class="text-gray-500 dark:text-gray-400">Loading...</span>
         </div>
         <!-- Iframe -->
-        <iframe :src="`https://quran.com/id/${selectedSurah}`"
-          class="w-full h-full border border-gray-300 dark:border-gray-700" frameborder="0"
+        <iframe :src="`https://quran.com/id/${selectedSurah}`" class="w-full h-full" frameborder="0"
           @load="onIframeLoad"></iframe>
       </div>
     </div>
-  </div>
 
-  <footer
-    class="pl-5 fixed bottom-0 left-0 w-full flex justify-between items-center py-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-sm shadow">
-    <div class="text-center">
-      © 2025 <span
-        class="text-blue-600 dark:text-blue-400 hover:underline">Irfannurf</span>, Thanks to <a href="https://quran.com"
-        target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">Quran.com</a>
-    </div>
-    <div class="flex space-x-4 pr-4">
-      <!-- YouTube Icon -->
-      <a href="https://www.youtube.com/@RockyDrive" target="_blank"
-        class="text-gray-600 dark:text-gray-400 hover:text-red-600">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-          <path
-            d="M23.498 6.186a2.99 2.99 0 00-2.105-2.11C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.393.576a2.99 2.99 0 00-2.105 2.11C0 8.08 0 12 0 12s0 3.92.502 5.814a2.99 2.99 0 002.105 2.11C4.5 20.5 12 20.5 12 20.5s7.5 0 9.393-.576a2.99 2.99 0 002.105-2.11C24 15.92 24 12 24 12s0-3.92-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
-        </svg>
-      </a>
-      <!-- GitHub Icon -->
-      <a href="https://github.com/irfannur" target="_blank"
-        class="text-gray-600 dark:text-gray-400 hover:text-blue-600">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-          <path
-            d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.263.793-.587v-2.17c-3.338.725-4.037-1.613-4.037-1.613-.55-1.387-1.338-1.756-1.338-1.756-1.087-.75.088-.725.088-.725 1.2.088 1.837 1.238 1.837 1.238 1.075 1.837 2.825 1.3 3.513.988.113-.775.425-1.3.775-1.6-2.662-.3-5.462-1.337-5.462-5.962 0-1.312.475-2.387 1.237-3.237-.125-.3-.537-1.512.113-3.15 0 0 1.012-.325 3.3 1.237.962-.263 2-.4 3.037-.4 1.037 0 2.075.137 3.037.4 2.287-1.562 3.3-1.237 3.3-1.237.65 1.638.238 2.85.113 3.15.762.85 1.237 1.925 1.237 3.237 0 4.637-2.8 5.662-5.462 5.962.437.375.825 1.112.825 2.237v3.312c0 .325.2.7.8.587C20.563 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
-        </svg>
-      </a>
-      <!-- GitLab Icon -->
-      <a href="https://gitlab.com/irfannur238" target="_blank"
-        class="text-gray-600 dark:text-gray-400 hover:text-orange-600">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-          <path
-            d="M22.453 12.934l-2.1-6.463c-.2-.6-.8-.988-1.4-.988-.6 0-1.2.388-1.4.988l-1.5 4.612H8.447l-1.5-4.612c-.2-.6-.8-.988-1.4-.988-.6 0-1.2.388-1.4.988l-2.1 6.463c-.2.6 0 1.238.5 1.625l9.05 6.825c.4.3 1 .3 1.4 0l9.05-6.825c.5-.387.7-1.025.5-1.625z" />
-        </svg>
-      </a>
-    </div>
-  </footer>
+    <!-- Footer -->
+    <footer
+      class="pl-5 fixed bottom-0 left-0 w-full flex justify-between items-center py-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-sm shadow z-50">
+      <div class="text-center">
+        © 2025 <span class="text-blue-600 dark:text-blue-400 hover:underline">Irfannurf</span>, All surah links lead to
+        <a href="https://quran.com" target="_blank"
+          class="text-blue-600 dark:text-blue-400 hover:underline">Quran.com</a>
+      </div>
+      <div class="flex space-x-4 pr-4">
+        <!-- YouTube Icon -->
+        <a href="https://www.youtube.com/@RockyDrive" target="_blank"
+          class="text-gray-600 dark:text-gray-400 hover:text-red-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M23.498 6.186a2.99 2.99 0 00-2.105-2.11C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.393.576a2.99 2.99 0 00-2.105 2.11C0 8.08 0 12 0 12s0 3.92.502 5.814a2.99 2.99 0 002.105 2.11C4.5 20.5 12 20.5 12 20.5s7.5 0 9.393-.576a2.99 2.99 0 002.105-2.11C24 15.92 24 12 24 12s0-3.92-.502-5.814zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+          </svg>
+        </a>
+        <!-- GitHub Icon -->
+        <a href="https://github.com/irfannur" target="_blank"
+          class="text-gray-600 dark:text-gray-400 hover:text-blue-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.207 11.387.6.113.793-.263.793-.587v-2.17c-3.338.725-4.037-1.613-4.037-1.613-.55-1.387-1.338-1.756-1.338-1.756-1.087-.75.088-.725.088-.725 1.2.088 1.837 1.238 1.837 1.238 1.075 1.837 2.825 1.3 3.513.988.113-.775.425-1.3.775-1.6-2.662-.3-5.462-1.337-5.462-5.962 0-1.312.475-2.387 1.237-3.237-.125-.3-.537-1.512.113-3.15 0 0 1.012-.325 3.3 1.237.962-.263 2-.4 3.037-.4 1.037 0 2.075.137 3.037.4 2.287-1.562 3.3-1.237 3.3-1.237.65 1.638.238 2.85.113 3.15.762.85 1.237 1.925 1.237 3.237 0 4.637-2.8 5.662-5.462 5.962.437.375.825 1.112.825 2.237v3.312c0 .325.2.7.8.587C20.563 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+        </a>
+        <!-- GitLab Icon -->
+        <a href="https://gitlab.com/irfannur238" target="_blank"
+          class="text-gray-600 dark:text-gray-400 hover:text-orange-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M22.453 12.934l-2.1-6.463c-.2-.6-.8-.988-1.4-.988-.6 0-1.2.388-1.4.988l-1.5 4.612H8.447l-1.5-4.612c-.2-.6-.8-.988-1.4-.988-.6 0-1.2.388-1.4.988l-2.1 6.463c-.2.6 0 1.238.5 1.625l9.05 6.825c.4.3 1 .3 1.4 0l9.05-6.825c.5-.387.7-1.025.5-1.625z" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script setup>
@@ -121,6 +146,7 @@ const isDarkMode = ref(localStorage.getItem('darkMode') === 'true');
 const showOffcanvas = ref(false);
 const selectedSurah = ref(null);
 const isLoading = ref(true); // State untuk loading indikator
+const isFullscreen = ref(false); // State untuk mode fullscreen
 
 // Filter pencarian surah
 const filteredSurahs = computed(() =>
@@ -140,6 +166,7 @@ const openSurah = (surahNo) => {
   selectedSurah.value = surahNo;
   showOffcanvas.value = true;
   isLoading.value = true; // Tampilkan loading saat iframe dimuat
+  isFullscreen.value = false; // Mulai dengan mode setengah layar
 };
 
 // Fungsi untuk menutup offcanvas
@@ -150,6 +177,11 @@ const closeOffcanvas = () => {
 // Fungsi untuk menyembunyikan loading setelah iframe selesai dimuat
 const onIframeLoad = () => {
   isLoading.value = false;
+};
+
+// Fungsi untuk toggle fullscreen
+const toggleFullscreen = () => {
+  isFullscreen.value = !isFullscreen.value;
 };
 
 // Tambahkan class dark ke body saat nilai berubah
