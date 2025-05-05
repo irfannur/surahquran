@@ -58,7 +58,7 @@
     </div>
 
     <!-- Offcanvas -->
-    <div v-if="showOffcanvas" :class="isFullscreen ? 'fixed inset-0' : 'fixed inset-x-0 bottom-0 h-1/2'"
+    <div v-if="showOffcanvas" :class="isFullscreen ? 'fixed inset-0' : 'fixed inset-x-0 bottom-0 h-3/4'"
       class="bg-white dark:bg-gray-800 shadow-lg pt-4 border-t border-gray-300 dark:border-gray-700 z-40">
       <!-- Tombol Tutup -->
       <div class="absolute top-1.5 right-4 flex space-x-4">
